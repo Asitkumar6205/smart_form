@@ -8,14 +8,14 @@ The app collects answers from users, validates inputs with **Zod**, and logs the
 ## 📸 Screenshots
 
 ### Form Validation Example
-![Validation Errors](1.png)
+![Validation Errors](./public/1.png)
 
 ### Survey Submission
-![Survey Submission](2.png)
-![Survey Submission](3.png)
+![Survey Submission](./public/2.png)
+![Survey Submission](./public/3.png)
 
 ### Mobile View Responsiveness
-![Survey Submission](4.png)
+![Survey Submission](./public/4.png)
 
 ## 🚀 Tech Stack
 
