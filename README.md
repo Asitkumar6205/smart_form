@@ -1,69 +1,91 @@
-# React + TypeScript + Vite
+# Mini Survey Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React + TypeScript + Vite project styled with TailwindCSS.  
+The app collects answers from users, validates inputs with **Zod**, and logs them as an object `{ questionId: answer }`.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 Screenshots
 
-## Expanding the ESLint configuration
+### Form Validation Example
+![Validation Errors](1.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Survey Submission
+![Survey Submission](2.png)
+![Survey Submission](3.png)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Mobile View Responsiveness
+![Survey Submission](4.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🚀 Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Zod](https://zod.dev/) (form validation)
+- ESLint (code linting)
+
+---
+
+## 📦 Setup Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Asitkumar6205/smart_form.git
+cd smart_form
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
+```bash
+npm install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 3. Run the development server
+```bash
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+//The app will be available at:
+//👉 http://localhost:8080
+```
+
+### 4. Build for production
+```bash
+npm run build
+```
+
+### 5. Preview production build
+```bash
+npm run preview
+```
+
+## 🧪 Example Data Logging
+
+#### On form submission, the app collects answers into an object like this:
+```bash
+{
+  age-group: "18-25",
+  company: "Rosa Tech",
+  contact-method: "Email",
+  email: "sdeasit2@gmail.com",
+  frequency: "Weekly",
+  full-name: "Asit Kumar",
+  interests: ['Technology', 'Sports', 'Travel', 'Music', 'Reading'],
+  services: ['Development', 'Consulting']
+}
+```
+
+## 📂 Project Structure
+
+```bash
+project-root/
+├── public/ # Static assets (favicon, etc.)
+├── src/
+│ ├── components/ # Reusable components
+│ ├── App.tsx # Main app component
+│ ├── main.tsx # Entry point
+│ └── index.css # Tailwind styles
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+└── package.json
 ```

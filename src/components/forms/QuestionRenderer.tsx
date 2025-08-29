@@ -7,8 +7,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 interface QuestionRendererProps {
   question: Question;
-  value: any;
-  onChange: (value: any) => void;
+  value: string | string[] | undefined;
+  onChange: (value: string | string[]) => void;
   error?: string;
 }
 
@@ -31,7 +31,7 @@ export const QuestionRenderer: React.FC<QuestionRendererProps> = ({
               id={question.id}
               type="text"
               placeholder={question.placeholder}
-              value={value || ''}
+              value={typeof value === 'string' ? value : ''}
               onChange={(e) => onChange(e.target.value)}
               className={error ? 'border-destructive' : ''}
             />
@@ -46,7 +46,7 @@ export const QuestionRenderer: React.FC<QuestionRendererProps> = ({
               {question.required && <span className="text-destructive ml-1">*</span>}
             </Label>
             <RadioGroup
-              value={value || ''}
+              value={typeof value === 'string' ? value : ''}
               onValueChange={onChange}
               className="space-y-2"
             >
@@ -66,7 +66,7 @@ export const QuestionRenderer: React.FC<QuestionRendererProps> = ({
         );
 
       case 'checkbox':
-        const selectedValues = value || [];
+        const selectedValues = Array.isArray(value) ? value : [];
         return (
           <div className="space-y-3">
             <Label className="text-sm font-medium">
@@ -83,7 +83,7 @@ export const QuestionRenderer: React.FC<QuestionRendererProps> = ({
                       if (checked) {
                         onChange([...selectedValues, option]);
                       } else {
-                        onChange(selectedValues.filter((v: string) => v !== option));
+                        onChange(selectedValues.filter((v) => v !== option));
                       }
                     }}
                   />

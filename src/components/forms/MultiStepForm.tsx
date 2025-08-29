@@ -6,10 +6,11 @@ import { ProgressIndicator } from './ProgressIndicator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { ThemeSelector } from '@/components/ThemeSelector';
+import { validateQuestion, hasSpecificValidation } from '@/lib/validations';
 import { useIsMobile } from '@/hooks/use-mobile'; 
 
 interface FormAnswers {
-  [questionId: string]: any;
+  [questionId: string]: string | string[] | undefined;
 }
 
 interface ValidationErrors {
@@ -21,8 +22,6 @@ export const MultiStepForm: React.FC = () => {
   const [answers, setAnswers] = useState<FormAnswers>({});
   const [errors, setErrors] = useState<ValidationErrors>({});
   const { toast } = useToast();
-  
-  // Add the mobile hook
   const isMobile = useIsMobile();
 
   // Flatten all screens from all chapters
@@ -44,11 +43,22 @@ export const MultiStepForm: React.FC = () => {
     currentScreen.questions.forEach(question => {
       const answer = answers[question.id];
       
+      // Check if required field is empty
       if (question.required) {
         if (!answer || 
             (typeof answer === 'string' && answer.trim() === '') ||
             (Array.isArray(answer) && answer.length === 0)) {
           newErrors[question.id] = 'This field is required';
+          isValid = false;
+          return; // Skip further validation if required field is empty
+        }
+      }
+
+      // Check specific Zod validations for name and email
+      if (hasSpecificValidation(question.id) && answer) {
+        const validationError = validateQuestion(question.id, answer);
+        if (validationError) {
+          newErrors[question.id] = validationError;
           isValid = false;
         }
       }
@@ -58,7 +68,7 @@ export const MultiStepForm: React.FC = () => {
     return isValid;
   }, [currentScreen, answers]);
 
-  const handleAnswerChange = (questionId: string, value: any) => {
+  const handleAnswerChange = (questionId: string, value: string | string[]) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: value
@@ -103,7 +113,7 @@ export const MultiStepForm: React.FC = () => {
              (!Array.isArray(answer) || answer.length > 0);
     });
 
-  return (
+    return (
     <div className={`min-h-screen bg-background ${
       isMobile 
         ? 'p-2' // Tighter padding on mobile

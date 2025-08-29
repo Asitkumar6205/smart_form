@@ -30,7 +30,7 @@ export interface FormConfig {
 }
 
 export const formConfig: FormConfig = {
-  title: "Smart Form Configuration",
+  title: "Mini Survey Form",
   description: "A dynamic multi-step form example",
   chapters: [
     {
